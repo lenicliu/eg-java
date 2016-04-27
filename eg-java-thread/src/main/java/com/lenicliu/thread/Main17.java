@@ -1,83 +1,67 @@
 package com.lenicliu.thread;
 
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.IntStream;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.RecursiveTask;
 
 public class Main17 {
 
-	public static void main(String[] args) {
-		class SharedInt {
-			int			value		= -1;
-			boolean		available	= false;
-			Lock		lock		= new ReentrantLock();
-			Condition	condition	= lock.newCondition();
+	public static void main(String[] args) throws Exception {
 
-			void lock() {
-				lock.lock();
+		class Factorial extends RecursiveTask<BigDecimal> {
+			final long start, end, threshold = 10;
+
+			public Factorial(long end) {
+				this(1, end);
 			}
 
-			void unlock() {
-				lock.unlock();
+			private Factorial(long start, long end) {
+				this.start = start;
+				this.end = end;
 			}
 
-			int get() {
-				lock.lock();
-				try {
-					while (!this.available) {
-						try {
-							this.condition.await();
-						} catch (InterruptedException e) {}
+			@Override
+			protected BigDecimal compute() {
+				MathContext mc = new MathContext(100, RoundingMode.HALF_UP);
+				BigDecimal factorial = BigDecimal.ONE;
+				if (end - start < threshold) {
+					for (long i = start; i <= end; i++) {
+						factorial = factorial.multiply(new BigDecimal(i), mc);
 					}
-					this.available = false;
-					this.condition.signal();
-					return this.value;
-				} finally {
-					lock.unlock();
+				} else {
+					long middle = (start + end) / 2;
+					Factorial left = new Factorial(start, middle);
+					Factorial right = new Factorial(middle + 1, end);
+					left.fork();
+					right.fork();
+					factorial = left.join().multiply(right.join());
 				}
-			}
-
-			void set(int value) {
-				lock.lock();
-				try {
-					while (this.available) {
-						try {
-							this.condition.await();
-						} catch (InterruptedException e) {}
-					}
-					this.value = value;
-					this.available = true;
-					this.condition.signal();
-				} finally {
-					lock.unlock();
-				}
+				return factorial;
 			}
 		}
 
-		SharedInt shared = new SharedInt();
+		ForkJoinPool forkJoinPool = new ForkJoinPool();
+		System.out.println(forkJoinPool.submit(new Factorial(100)).get());
+	}
 
-		Runnable producer = () -> {
-			int[] values = IntStream.range(0, 10).toArray();
-			for (int value : values) {
-				shared.lock();
-				shared.set(value);
-				System.out.println("producer : " + value);
-				shared.unlock();
-			}
-		};
+	public static long factorialLong(long n) {
+		if (n > 12) {
+			throw new IllegalArgumentException("must less than 13");
+		}
+		int r = 1;
+		for (int i = 1; i <= n; i++) {
+			r *= i;
+		}
+		return r;
+	}
 
-		Runnable consumer = () -> {
-			int value = -1;
-			while (value != 9) {
-				shared.lock();
-				value = shared.get();
-				System.out.println("consumer : " + value);
-				shared.unlock();
-			}
-		};
-
-		new Thread(consumer).start();
-		new Thread(producer).start();
+	public static BigDecimal factorialBigDecimal(long n) {
+		BigDecimal r = BigDecimal.ONE;
+		for (int i = 1; i <= n; i++) {
+			r = r.multiply(new BigDecimal(i));
+		}
+		return r;
 	}
 }
