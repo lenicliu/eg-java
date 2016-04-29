@@ -11,6 +11,7 @@ public class Main17 {
 	public static void main(String[] args) throws Exception {
 
 		class Factorial extends RecursiveTask<BigDecimal> {
+			private static final long serialVersionUID = 5851034591867289288L;
 			final long start, end, threshold = 10;
 
 			public Factorial(long end) {

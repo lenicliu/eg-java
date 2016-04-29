@@ -11,6 +11,7 @@ public class Main19 {
 	public static void main(String[] args) throws Exception {
 		final MathContext mc = new MathContext(100, RoundingMode.HALF_UP);
 		class Pi extends RecursiveTask<BigDecimal> {
+			private static final long serialVersionUID = 3036795521436558838L;
 			final long start, end, threshold = 10000;
 
 			public Pi(long end) {

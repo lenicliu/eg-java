@@ -5,8 +5,11 @@ import java.io.IOException;
 
 public class Main01 {
 	public static void main(String[] args) throws IOException {
+		@SuppressWarnings("unused")
 		File file1 = new File("D:\\Document\\books\\java.pdf");
+		@SuppressWarnings("unused")
 		File file2 = new File("/opt/data/my.txt");
+		@SuppressWarnings("unused")
 		File file3 = new File("/opt/data", "my.txt");
 
 		File file = new File("./pom.xml");
