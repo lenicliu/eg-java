@@ -28,6 +28,7 @@
 		<module>eg-java-collection</module>
 		<module>eg-java-map</module>
 		<module>eg-java-algorithm</module>
+		<module>eg-java-jvm</module>
 	</modules>
 	<dependencies>
 		<dependency>
