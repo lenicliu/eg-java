@@ -36,11 +36,11 @@ class Lang {
 }
 
 class Race {
-	private final int		DEST	= 50;
-	private boolean			done	= false;
-	private List<Horse>		horses	= new ArrayList<>();
-	private ExecutorService	exec	= Executors.newCachedThreadPool();
-	private CyclicBarrier	barrier;
+	private final int			DEST	= 50;
+	private volatile boolean	done	= false;
+	private List<Horse>			horses	= new ArrayList<>();
+	private ExecutorService		exec	= Executors.newCachedThreadPool();
+	private CyclicBarrier		barrier;
 
 	public Race() {
 		this(9);

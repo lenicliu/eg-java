@@ -22,13 +22,13 @@
 	<modules>
 		<module>eg-java-io</module>
 		<module>eg-java-nio</module>
-		<module>eg-java-nio2</module>
 		<module>eg-java-thread</module>
 		<module>eg-java-concurrency</module>
 		<module>eg-java-collection</module>
 		<module>eg-java-map</module>
 		<module>eg-java-algorithm</module>
 		<module>eg-java-jvm</module>
+		<module>eg-java-basic</module>
 	</modules>
 	<dependencies>
 		<dependency>
