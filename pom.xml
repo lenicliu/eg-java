@@ -29,6 +29,7 @@
 		<module>eg-java-algorithm</module>
 		<module>eg-java-jvm</module>
 		<module>eg-java-basic</module>
+		<module>eg-java-servlet3</module>
 	</modules>
 	<dependencies>
 		<dependency>

@@ -20,7 +20,7 @@ public class SortTestCase {
 		}
 	}
 
-	private static final int	LENGTH	= 100000;
+	private static final int	LENGTH	= 1000;
 
 	private static final int[]	INTS	= new int[LENGTH];
 	static {
