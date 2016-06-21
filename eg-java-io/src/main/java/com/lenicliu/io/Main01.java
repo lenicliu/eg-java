@@ -5,6 +5,7 @@ import java.io.IOException;
 
 public class Main01 {
 	public static void main(String[] args) throws IOException {
+		System.out.println(System.getProperty("os.name"));
 		@SuppressWarnings("unused")
 		File file1 = new File("D:\\Document\\books\\java.pdf");
 		@SuppressWarnings("unused")
