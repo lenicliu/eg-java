@@ -7,7 +7,7 @@
 <title>Servlet3</title>
 </head>
 <body>
-<a href="users">Go to User Page</a>
-<a href="books">Get Book List</a>
+<a href="users">Go to User Page</a><br/>
+<a href="books">Get Book List</a><br/>
 </body>
 </html>
