@@ -30,7 +30,9 @@
 		<module>eg-java-jvm</module>
 		<module>eg-java-basic</module>
 		<module>eg-java-servlet3</module>
-		<module>eg-java-bytecode</module>
+        <module>eg-java-bytecode</module>
+        <module>eg-java-rpc</module>
+        <module>eg-java-compiler</module>
 	</modules>
 	<dependencies>
 		<dependency>
